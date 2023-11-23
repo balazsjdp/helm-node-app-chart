@@ -1,0 +1,8 @@
+1. Get the application URL by running these commands:
+{{- if eq .Values.service.type "LoadBalancer" }}
+export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "my-nodejs-app.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+{{- else }}
+export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "my-nodejs-app.fullname" . }} -o jsonpath='{.spec.clusterIP}')
+{{- end }}
+export SERVICE_PORT=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "my-nodejs-app.fullname" . }} -o jsonpath='{.spec.ports[0].port}')
+echo "Application can be accessed at: http://$SERVICE_IP:$SERVICE_PORT"

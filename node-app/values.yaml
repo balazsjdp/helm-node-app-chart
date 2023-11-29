@@ -44,8 +44,8 @@ service:
 
 nodeportService:
   type: NodePort
-  port: 80
-  targetPort: 80
+  port: 3000
+  targetPort: 3000
   nodePort: 30004
 
 ingress:
